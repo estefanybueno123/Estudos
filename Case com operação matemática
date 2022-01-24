@@ -1,0 +1,28 @@
+SELECT tabela_A.*
+FROM (
+	SELECT [SalesOrderID]
+		,[SalesOrderDetailID]
+		,[CarrierTrackingNumber]
+		,[OrderQty]
+		,[ProductID]
+		,[SpecialOfferID]
+		,[UnitPrice]
+		,[UnitPriceDiscount]
+		,[LineTotal]
+		,[rowguid]
+		,[ModifiedDate]
+		,CASE 
+			WHEN LineTotal / OrderQty = UnitPrice
+				THEN 'OK'
+			ELSE 'NOK'
+			END ValidPrice
+		,CASE 
+			WHEN ROUND((UnitPrice * OrderQty) - (UnitPriceDiscount * OrderQty * UnitPrice), 3) = ROUND(LineTotal, 3)
+				THEN 'OK'
+			ELSE 'NOK'
+			END ValidPriceDiscount
+	FROM [AdventureWorks2019].[Sales].[SalesOrderDetail]
+	WHERE unitPrice < LineTotal
+		AND UnitPriceDiscount > 0
+	) AS tabela_A
+WHERE tabela_a.ValidPriceDiscount = 'NOK'
