@@ -1,12 +1,12 @@
 /****** Cinco maiores e menores salários por departamento e nome do funcionario  ******/
 SELECT SALARIOS.DepartmentID
-	,DEPARTMENT.[Name] AS NameDepartment
+	,DEPARTMENT.[Name] AS DepartmentName
 	,SALARIOS.BusinessEntityID
 	,CONCAT (
 		PERSON.[FirstName]
 		,' '
 		,[LastName]
-		) AS NamePerson
+		) AS PersonName
 	,SALARIOS.Rate
 	,SALARIOS.RANK
 FROM (
