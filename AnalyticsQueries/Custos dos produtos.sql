@@ -13,5 +13,5 @@ SELECT [ProductID]
 		WHEN LAG(StandardCost, 1, 0) Over (Partition by productID order by [startdate]) > 0 THEN
 	 (StandardCost - LAG(StandardCost, 1, 0) Over (Partition by productID order by [startdate])) / LAG(StandardCost, 1, 0) Over (Partition by productID order by [startdate]) *100
 	 ELSE 0
-	 END AS PorcentagemAumento -- Verificando quantos % o custo aumentou ou diminuiu
+	 END AS PorcentagemAumentoDiminuicao -- Verificando quantos % o custo aumentou ou diminuiu
   FROM [AdventureWorks2019].[Production].[ProductCostHistory]
